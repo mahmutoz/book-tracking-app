@@ -1,5 +1,5 @@
 import Shelves from "./Shelves";
-import {Link} from "react-router-dom";
+import GoToSearch from "./GoToSearch";
 
 const BookShelf = ({shelfList, updateShelf}) => {
   return <div className="list-books">
@@ -20,9 +20,7 @@ const BookShelf = ({shelfList, updateShelf}) => {
         </div>
       </div>
     </div>
-    <div className="open-search">
-      <Link to="/search">Add a book</Link>
-    </div>
+    <GoToSearch />
   </div>
 }
 

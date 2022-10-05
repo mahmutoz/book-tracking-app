@@ -20,10 +20,10 @@ function App() {
     BookAPI.update(book, shelfCategory).then(() => setSelectedCategory(shelfCategory));
 
     if (shelfCategory === "none") {
-      setAllBooks([allBooks.filter(b => b.id !== book.id).concat(book)]);
+      setAllBooks([...allBooks]);
     } else {
       book.shelf = shelfCategory;
-      const newBook = allBooks.filter(b => b.id !== book.id).concat(book);
+      const newBook = allBooks.filter(b => b.id !== book.id);
       setAllBooks([...allBooks, newBook]);
     }
   }
@@ -31,8 +31,8 @@ function App() {
   const getSearchBooks = (query, maxResults) => {
     query === ''
         ? setSearchBook([])
-        : BookAPI.search(query, maxResults).then((response) =>
-            setSearchBook(response.error ? [] : response)
+        : BookAPI.search(query, maxResults).then((books) =>
+            setSearchBook(books.error ? [] : books)
          );
   }
 

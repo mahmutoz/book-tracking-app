@@ -1,6 +1,7 @@
 import BookList from "./BookList";
 
 const Shelves = ({books, title, updateShelf}) => {
+  console.log("book", books);
   return <>
     <h2 className="bookshelf-title">{title}</h2>
     <div className="bookshelf-books">
