@@ -1,14 +1,10 @@
-import {createBrowserRouter} from "react-router-dom";
-import App from "./App";
-import {SearchPage} from "./pages";
-
-export const routes = createBrowserRouter([
-  {
+export const routes = {
+  homePage: {
     path: "/",
-    element: <App />,
+    title: "Home",
   },
-  {
+  searchPage: {
     path: "/search",
-    element: <SearchPage />
+    title: "Search",
   }
-]);
+};

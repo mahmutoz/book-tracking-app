@@ -1,6 +1,6 @@
 # Book Tracking App
 
-Book tracking app for the final assessment project for Udacity's React Fundamentals course.
+Book tracking app is the final assessment project for Udacity's React Fundamentals course.
 
 ## Getting Started
 
@@ -60,8 +60,9 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebook/create-react-app/blob/main/packages/cra-template/template/README.md).
 
-## Contributing
+## Deployment
+This App is deployed on Heroku
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+## License
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+A Project starter code contributed by Udacity.

@@ -1,12 +1,16 @@
 import "./App.css";
 import {useEffect, useState} from "react";
-import Shelves from "./components/Shelves";
 import * as BookAPI from "./api/BooksAPI";
-import {Link} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import {routes} from './routes';
+import BookShelf from "./components/BookShelf";
+import SearchBook from "./components/SearchBook";
 
 function App() {
+  const {homePage, searchPage} = routes
   const [allBooks, setAllBooks] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
+  const [searchBook, setSearchBook] = useState([]);
 
   useEffect(() => {
     BookAPI.getAll().then((response) => setAllBooks(response));
@@ -15,11 +19,21 @@ function App() {
   const updateShelf = (book, shelfCategory) => {
     BookAPI.update(book, shelfCategory).then(() => setSelectedCategory(shelfCategory));
 
-    if (shelfCategory !== "none") {
+    if (shelfCategory === "none") {
+      setAllBooks([allBooks.filter(b => b.id !== book.id).concat(book)]);
+    } else {
       book.shelf = shelfCategory;
-      const newBook = allBooks.filter(b => b.id !== book.id);
+      const newBook = allBooks.filter(b => b.id !== book.id).concat(book);
       setAllBooks([...allBooks, newBook]);
     }
+  }
+
+  const getSearchBooks = (query, maxResults) => {
+    query === ''
+        ? setSearchBook([])
+        : BookAPI.search(query, maxResults).then((response) =>
+            setSearchBook(response.error ? [] : response)
+         );
   }
 
   const shelfList = [
@@ -42,28 +56,10 @@ function App() {
 
   return (
       <div className="app">
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
-          <div className="list-books-content">
-            <div>
-              <div className="bookshelf">
-                {
-                  shelfList.map(shelf => <Shelves
-                      key={shelf.key}
-                      books={shelf?.books}
-                      title={shelf.title}
-                      updateShelf={updateShelf}
-                  />)
-                }
-              </div>
-            </div>
-          </div>
-          <div className="open-search">
-            <Link to="/search">Add a book</Link>
-          </div>
-        </div>
+        <Routes>
+          <Route exact element={<BookShelf shelfList={shelfList} updateShelf={updateShelf}/>} path={homePage.path}/>
+          <Route exact element={<SearchBook getSearchBooks={getSearchBooks} searchBook={searchBook} setSearchBook={setSearchBook} updateShelf={updateShelf} />} path={searchPage.path}/>
+        </Routes>
       </div>
   );
 }
