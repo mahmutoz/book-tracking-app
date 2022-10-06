@@ -1,7 +1,7 @@
 import Shelves from "./Shelves";
 import GoToSearch from "./GoToSearch";
 
-const BookShelf = ({shelfList, updateShelf}) => {
+const BookShelf = ({allBooks, shelfList, updateShelf}) => {
   return <div className="list-books">
     <div className="list-books-title">
       <h1>MyReads</h1>
@@ -10,13 +10,14 @@ const BookShelf = ({shelfList, updateShelf}) => {
       <div>
         <div className="bookshelf">
           {
-            shelfList.map(shelf => <Shelves
-                key={shelf.key}
-                books={shelf?.books}
-                title={shelf.title}
-                updateShelf={updateShelf}
-            />)
-          }
+            shelfList.map(shelf =>
+                <Shelves
+                    key={shelf.key}
+                    books={allBooks.filter(book => book.shelf === shelf.key)}
+                    title={shelf.title}
+                    updateShelf={updateShelf}
+                />
+            )}
         </div>
       </div>
     </div>

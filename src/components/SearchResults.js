@@ -1,7 +1,6 @@
 import BookList from "./BookList";
 
 const SearchResults = ({searchBook, updateShelf}) => {
-  console.log("ayy", searchBook);
   return <div className="search-books-results">
     <ol className="books-grid">
       {

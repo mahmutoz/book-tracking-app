@@ -19,13 +19,9 @@ function App() {
   const updateShelf = (book, shelfCategory) => {
     BookAPI.update(book, shelfCategory).then(() => setSelectedCategory(shelfCategory));
 
-    if (shelfCategory === "none") {
-      setAllBooks([...allBooks]);
-    } else {
-      book.shelf = shelfCategory;
-      const newBook = allBooks.filter(b => b.id !== book.id);
-      setAllBooks([...allBooks, newBook]);
-    }
+    book.shelf = shelfCategory;
+    const newBook = allBooks.filter(b => b.id !== book.id);
+    setAllBooks([...newBook, book]);
   }
 
   const getSearchBooks = (query, maxResults) => {
@@ -39,25 +35,22 @@ function App() {
   const shelfList = [
     {
       key: "currentlyReading",
-      title: "Currently Reading",
-      books: allBooks?.filter(book => book.shelf === "currentlyReading")
+      title: "Currently Reading"
     },
     {
       key: "wantToRead",
-      title: "Want to Read",
-      books: allBooks?.filter(book => book.shelf === "wantToRead")
+      title: "Want to Read"
     },
     {
       key: "read",
-      title: "Read",
-      books: allBooks?.filter(book => book.shelf === "read")
+      title: "Read"
     }
   ]
 
   return (
       <div className="app">
         <Routes>
-          <Route exact element={<BookShelf shelfList={shelfList} updateShelf={updateShelf}/>} path={homePage.path}/>
+          <Route exact element={<BookShelf allBooks={allBooks} shelfList={shelfList} updateShelf={updateShelf}/>} path={homePage.path}/>
           <Route exact element={<SearchBook getSearchBooks={getSearchBooks} searchBook={searchBook} setSearchBook={setSearchBook} updateShelf={updateShelf} />} path={searchPage.path}/>
         </Routes>
       </div>
