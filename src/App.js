@@ -20,8 +20,8 @@ function App() {
     BookAPI.update(book, shelfCategory).then(() => setSelectedCategory(shelfCategory));
 
     book.shelf = shelfCategory;
-    const newBook = allBooks.filter(b => b.id !== book.id);
-    setAllBooks([...newBook, book]);
+    const books = allBooks.filter(b => b.id !== book.id);
+    setAllBooks([...books, book]);
   }
 
   const getSearchBooks = (query, maxResults) => {
