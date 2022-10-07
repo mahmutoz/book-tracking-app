@@ -1,5 +1,6 @@
 import Shelves from "./Shelves";
 import GoToSearch from "./GoToSearch";
+import PropTypes from 'prop-types';
 
 const BookShelf = ({allBooks, shelfList, updateShelf}) => {
   return <div className="list-books">
@@ -23,6 +24,12 @@ const BookShelf = ({allBooks, shelfList, updateShelf}) => {
     </div>
     <GoToSearch />
   </div>
+}
+
+BookShelf.propTypes = {
+  allBooks: PropTypes.array.isRequired,
+  shelfList: PropTypes.array.isRequired,
+  updateShelf: PropTypes.func.isRequired,
 }
 
 export default BookShelf;

@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import {routes} from '../routes';
+import PropTypes from "prop-types";
 
 const SearchBar = ({getSearchBooks, setSearchBook}) => {
   const {homePage} = routes;
@@ -14,6 +15,11 @@ const SearchBar = ({getSearchBooks, setSearchBook}) => {
       />
     </div>
   </div>
+}
+
+SearchBar.propTypes = {
+  getSearchBooks: PropTypes.func.isRequired,
+  setSearchBook: PropTypes.func.isRequired,
 }
 
 export default SearchBar

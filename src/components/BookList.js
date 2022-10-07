@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const BookList = ({filteredBook, updateShelf}) => {
 
   const handleChangeShelf = (e) => {
@@ -18,9 +20,7 @@ const BookList = ({filteredBook, updateShelf}) => {
               ></div>
               <div className="book-shelf-changer">
                 <select onChange={handleChangeShelf} defaultValue={filteredBook.shelf || "none"}>
-                  <option value="none" disabled>
-                    Move to...
-                  </option>
+                  <option value="" disabled>Move to...</option>
                   <option value="currentlyReading">
                     Currently Reading
                   </option>
@@ -34,6 +34,11 @@ const BookList = ({filteredBook, updateShelf}) => {
             <div className="book-authors">{filteredBook.authors ? filteredBook.authors.join(", ") : "Unknown Author"}</div>
           </div>
          </li>
+}
+
+BookList.propTypes = {
+  filteredBook: PropTypes.object.isRequired,
+  updateShelf: PropTypes.func.isRequired,
 }
 
 export default BookList;
