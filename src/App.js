@@ -6,6 +6,7 @@ import {routes} from './routes';
 import BookShelf from "./components/BookShelf";
 import SearchBook from "./components/SearchBook";
 import NotFound from "./components/NotFound";
+import { debounce } from 'throttle-debounce';
 
 function App() {
   const {homePage, searchPage} = routes
@@ -25,13 +26,14 @@ function App() {
     console.log("all", allBooks);
   }
 
-  const getSearchBooks = (query, maxResults) => {
+  const getSearchBooks = debounce(500,(query, maxResults) => {
     query === ''
         ? setSearchBook([])
         : BookAPI.search(query, maxResults).then((books) =>
             setSearchBook(books.error ? [] : books)
-         );
-  }
+        );
+      },
+    );
 
   const shelfList = [
     {
