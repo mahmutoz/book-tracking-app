@@ -5,11 +5,11 @@ import { Routes, Route } from "react-router-dom";
 import {routes} from './routes';
 import BookShelf from "./components/BookShelf";
 import SearchBook from "./components/SearchBook";
+import NotFound from "./components/NotFound";
 
 function App() {
   const {homePage, searchPage} = routes
   const [allBooks, setAllBooks] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState();
   const [searchBook, setSearchBook] = useState([]);
 
   useEffect(() => {
@@ -17,11 +17,12 @@ function App() {
   }, []);
 
   const updateShelf = (book, shelfCategory) => {
-    BookAPI.update(book, shelfCategory).then(() => setSelectedCategory(shelfCategory));
+    BookAPI.update(book, shelfCategory);
 
     book.shelf = shelfCategory;
     const books = allBooks.filter(b => b.id !== book.id);
     setAllBooks([...books, book]);
+    console.log("all", allBooks);
   }
 
   const getSearchBooks = (query, maxResults) => {
@@ -52,6 +53,7 @@ function App() {
         <Routes>
           <Route exact element={<BookShelf allBooks={allBooks} shelfList={shelfList} updateShelf={updateShelf}/>} path={homePage.path}/>
           <Route exact element={<SearchBook getSearchBooks={getSearchBooks} searchBook={searchBook} setSearchBook={setSearchBook} updateShelf={updateShelf} />} path={searchPage.path}/>
+          <Route exact element={<NotFound />} path="*"/>
         </Routes>
       </div>
   );
