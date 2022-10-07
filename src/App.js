@@ -12,7 +12,6 @@ function App() {
   const {homePage, searchPage} = routes
   const [allBooks, setAllBooks] = useState([]);
   const [searchBook, setSearchBook] = useState([]);
-
   useEffect(() => {
     BookAPI.getAll().then((response) => setAllBooks(response));
   }, []);
@@ -23,7 +22,6 @@ function App() {
     book.shelf = shelfCategory;
     const books = allBooks.filter(b => b.id !== book.id);
     setAllBooks([...books, book]);
-    console.log("all", allBooks);
   }
 
   const getSearchBooks = debounce(500,(query, maxResults) => {
